@@ -51,9 +51,9 @@ private:
 
 public:
 // [Constructor] Constructs the ptr with an ptr
+  SmartPointer() : ptr(NULL) {}
+// [Constructor] Constructs the ptr with an ptr
   SmartPointer(_Tptr *ptr) : ptr(ptr) {}
-// [Constructor] Constructs the ptr with an const ptr
-  SmartPointer(const _Tptr *ptr) : ptr(ptr) {}
 // [Getter] Gets the pointer to the value
   _Tptr *get() const;
 // [Setter] Sets the value the type
@@ -66,8 +66,12 @@ public:
   SmartPointer<_Tptr>& operator=(_Tptr *ptr);
 // [Operator] Sets an new ptr for the class
   SmartPointer<_Tptr>& operator=(const _Tptr *ptr);
+// [Operator] Calls internal pointer operator
+  _Tptr*operator->() const;
 // [Public Method] Deletes actual pointer and sets NULL
   void reset();
+// [Public Method] Checks if is null the pointer
+  bool isNull();
 };
 
 template <typename _Tptr>
@@ -75,6 +79,8 @@ template <typename _Tptr>
 // Needs that the _Tptr has a default constructor
 // to instance a new _Tptr()
 SmartPointer<_Tptr> make_ptr();
+template <typename _Tptr>
+SmartPointer<_Tptr> make_ptr(_Tptr);
 
 /**************************************************************************/
 /*
@@ -136,9 +142,24 @@ void SmartPointer<_Tptr>::reset() {
 }
 
 template <typename _Tptr>
+bool SmartPointer<_Tptr>::isNull() {
+  return this->ptr == NULL;
+}
+
+template <typename _Tptr>
+_Tptr* SmartPointer<_Tptr>::operator->() const {
+  return this->ptr;
+}
+
+template <typename _Tptr>
 SmartPointer<_Tptr> make_ptr()
 {
   return SmartPointer<_Tptr>(new _Tptr());
+}
+
+template <typename _Tptr>
+SmartPointer<_Tptr> make_ptr(_Tptr val) {
+  return SmartPointer<_Tptr>(&val);
 }
 
 } // namespace memory
