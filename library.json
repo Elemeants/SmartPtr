@@ -1,0 +1,16 @@
+{
+  "name": "SmartPtr",
+  "keywords": "memory, pointers, smart_ptr",
+  "description": "C++ library with templates, manages pointers as smart pointer",
+  "authors":
+  [
+    {
+      "name": "Daniel Polanco",
+      "email": "jdanypa@gmail.com",
+      "maintainer": true
+    }
+  ],
+  "version": "1.0",
+  "frameworks": "*",
+  "platforms": "*"
+}
